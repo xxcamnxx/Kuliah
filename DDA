@@ -1,0 +1,52 @@
+import matplotlib.pyplot as plt
+
+def dda(x1, y1, x2, y2):
+    # Hitung delta X dan delta Y
+    dx = x2 - x1
+    dy = y2 - y1
+    
+    # Tentukan jumlah langkah berdasarkan jarak terpanjang (dx atau dy)
+    steps = int(max(abs(dx), abs(dy)))
+    
+    # Hitung increment X dan Y untuk setiap langkah
+    x_increment = dx / steps
+    y_increment = dy / steps
+    
+    # Inisialisasi koordinat awal
+    x = x1
+    y = y1
+    
+    # Daftar untuk menyimpan titik-titik hasil
+    points = []
+    
+    for _ in range(steps + 1):
+        points.append((round(x), round(y)))
+        x += x_increment
+        y += y_increment
+    
+    return points
+
+# Fungsi untuk menggambar garis menggunakan matplotlib
+def draw_line(points):
+    x_coords = [p[0] for p in points]
+    y_coords = [p[1] for p in points]
+    
+    plt.plot(x_coords, y_coords, marker='o', color='blue', linestyle='-', markersize=5)
+    plt.xlabel('X-axis')
+    plt.ylabel('Y-axis')
+    plt.title('Algoritma DDA')
+    plt.grid()
+    plt.show()
+
+# Meminta input dari pengguna untuk koordinat x1, y1, x2, dan y2
+x1 = int(input("Masukkan koordinat X1: "))
+y1 = int(input("Masukkan koordinat Y1: "))
+x2 = int(input("Masukkan koordinat X2: "))
+y2 = int(input("Masukkan koordinat Y2: "))
+
+# Menghitung titik-titik yang dilewati oleh garis menggunakan DDA
+points = dda(x1, y1, x2, y2)
+print("Titik-titik yang dilewati oleh garis:", points)
+
+# Gambar garis
+draw_line(points)
